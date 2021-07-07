@@ -103,11 +103,11 @@ public class BasicBossSwapper extends Plugin
 			{
 				if (run)
 				{
-					sendMessage("Boss Swapper Activated");
+					sendMessage(".");
 				}
 				else
 				{
-					sendMessage("Boss Swapper De-Activated");
+					sendMessage("'");
 				}
 			}
 		}
@@ -132,6 +132,11 @@ public class BasicBossSwapper extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
+		if (!run)
+		{
+			return;
+		}
+
 		if (swapMage)
 		{
 			clickPrayer(Prayer.PROTECT_FROM_MAGIC);
@@ -157,6 +162,7 @@ public class BasicBossSwapper extends Plugin
 
 			switch (nylo.getId())
 			{
+				// Normal mode nylo
 				case 8355:
 				{
 					prevNylo = nylo.getId();
@@ -174,6 +180,58 @@ public class BasicBossSwapper extends Plugin
 				}
 				return;
 				case 8357:
+				{
+					prevNylo = nylo.getId();
+					clickPrayer(Prayer.PROTECT_FROM_MISSILES);
+					clickPrayer(Prayer.RIGOUR);
+					clickItem(config.range());
+				}
+				return;
+
+				// Hard Mode Miniboss nylo
+				case 10808:
+				{
+					prevNylo = nylo.getId();
+					clickPrayer(Prayer.PROTECT_FROM_MELEE);
+					clickPrayer(Prayer.PIETY);
+					clickItem(config.melee());
+				}
+				return;
+				case 10809:
+				{
+					prevNylo = nylo.getId();
+					clickPrayer(Prayer.PROTECT_FROM_MAGIC);
+					clickPrayer(Prayer.AUGURY);
+					clickItem(config.mage());
+				}
+				return;
+				case 10810:
+				{
+					prevNylo = nylo.getId();
+					clickPrayer(Prayer.PROTECT_FROM_MISSILES);
+					clickPrayer(Prayer.RIGOUR);
+					clickItem(config.range());
+				}
+				return;
+
+				// Hardmode Nylo boss
+				case 10804:
+				{
+					prevNylo = nylo.getId();
+					clickPrayer(Prayer.PROTECT_FROM_MELEE);
+					clickPrayer(Prayer.PIETY);
+					clickItem(config.melee());
+				}
+				return;
+				case 10805:
+				{
+					prevNylo = nylo.getId();
+					clickPrayer(Prayer.PROTECT_FROM_MAGIC);
+					clickPrayer(Prayer.AUGURY);
+					clickItem(config.mage());
+				}
+				return;
+				case 10806:
 				{
 					prevNylo = nylo.getId();
 					clickPrayer(Prayer.PROTECT_FROM_MISSILES);
@@ -214,7 +272,7 @@ public class BasicBossSwapper extends Plugin
 	@Subscribe
 	public void onProjectileMoved(ProjectileMoved event)
 	{
-		if (run)
+		if (!run)
 		{
 			return;
 		}
@@ -224,7 +282,7 @@ public class BasicBossSwapper extends Plugin
 		switch (id)
 		{
 			case 1339:
-				if (config.swapAutos() && !client.isPrayerActive(Prayer.PROTECT_FROM_MAGIC))
+				if (!client.isPrayerActive(Prayer.PROTECT_FROM_MAGIC))
 				{
 					swapMage = true;
 				}
@@ -236,7 +294,7 @@ public class BasicBossSwapper extends Plugin
 				}
 				break;
 			case 1340:
-				if (config.swapAutos() && !client.isPrayerActive(Prayer.PROTECT_FROM_MISSILES))
+				if (!client.isPrayerActive(Prayer.PROTECT_FROM_MISSILES))
 				{
 					swapRange = true;
 				}
@@ -261,6 +319,13 @@ public class BasicBossSwapper extends Plugin
 			case NpcID.NYLOCAS_VASILIAS_8355:
 			case NpcID.NYLOCAS_VASILIAS_8356:
 			case NpcID.NYLOCAS_VASILIAS_8357:
+			case NpcID.NYLOCAS_VASILIAS_10808:
+			case NpcID.NYLOCAS_VASILIAS_10809:
+			case NpcID.NYLOCAS_VASILIAS_10810:
+			case NpcID.NYLOCAS_PRINKIPAS:
+			case NpcID.NYLOCAS_PRINKIPAS_10804:
+			case NpcID.NYLOCAS_PRINKIPAS_10805:
+			case NpcID.NYLOCAS_PRINKIPAS_10806:
 				nylo = npc;
 				break;
 		}
@@ -271,7 +336,7 @@ public class BasicBossSwapper extends Plugin
 	{
 		final NPC npc = event.getNpc();
 
-		if (npc.getId() == NpcID.NYLOCAS_VASILIAS)
+		if (npc.getId() == NpcID.NYLOCAS_VASILIAS || npc.getId() == NpcID.NYLOCAS_PRINKIPAS)
 		{
 			nylo = null;
 		}

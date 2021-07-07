@@ -43,7 +43,7 @@ public interface BasicBossSwapperConfig extends Config
 	)
 	default int randLow()
 	{
-		return 70;
+		return 50;
 	}
 
 	@ConfigItem(
@@ -55,7 +55,7 @@ public interface BasicBossSwapperConfig extends Config
 	)
 	default int randHigh()
 	{
-		return 80;
+		return 50;
 	}
 
 	@ConfigSection(
@@ -95,7 +95,7 @@ public interface BasicBossSwapperConfig extends Config
 	)
 	default String mage()
 	{
-		return "11663,22323,21795,12002";
+		return "11663,21795,12002,12899,8839,8840,21791,21024,21021,21018,19544,8842,13072,13073";
 	}
 
 	@ConfigItem(
@@ -107,7 +107,7 @@ public interface BasicBossSwapperConfig extends Config
 	)
 	default String range()
 	{
-		return "11664,12926,22109,19547";
+		return "861,11664,12926,19547,10499,22109,8839,8840,11828,11830,8842,13072,13073,25888";
 	}
 
 	@ConfigItem(
@@ -119,7 +119,7 @@ public interface BasicBossSwapperConfig extends Config
 	)
 	default String melee()
 	{
-		return "11665,12006,6570,19553,12954";
+		return "24780,11665,22324,19553,21295,12954,6570,11834,11832,12931,13239,7462,10551,24271,10551,21304,22981,22325";
 	}
 }
 
